@@ -1,0 +1,3 @@
+﻿AlignConsecutiveAssignments: 'true'
+AlignConsecutiveDeclarations: 'true'
+IndentWidth: '3'
