@@ -7,7 +7,7 @@
 
 class List {
  public:
-   std::vector<Item> objects;
+   std::vector<Item> items = {Item(0, "Apple", 50.0, 5)};
 
    void add();
    void remove();

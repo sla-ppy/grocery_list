@@ -6,16 +6,16 @@
 using s_int = signed int;
 
 class Item {
-public:
-    s_int id;
-    std::string name;
-    float price;
-    s_int quantity;
+ public:
+   s_int       id{0};
+   std::string name;
+   float       price{0.0};
+   s_int       quantity{0};
 
-    Item(std::string _name, float _price, s_int _quantity);
-    Item();
+   Item();
+   Item(s_int _id, std::string _name, float _price, s_int _quantity);
 };
 
-std::ostream& operator<<(std::ostream& os, const Item& item);
+std::ostream &operator<<(std::ostream &os, const Item &item);
 
 #endif // ITEM_H
