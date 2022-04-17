@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(sfml)
 include_directories("sfml/include")
 
-add_executable(grocery_list src/main.cpp src/Item.cpp src/Item.h src/List.cpp src/List.h)
+add_executable(grocery_list src/main.cpp src/Item.cpp src/Item.h src/List.cpp src/List.h src/Menu.cpp src/Menu.h)
 
 target_link_libraries(grocery_list sfml-graphics sfml-system sfml-window)
 

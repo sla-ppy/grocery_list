@@ -4,7 +4,7 @@
 void List::add() {
    // assign id based on current object amount
    int itemAmount{1};
-   for (const auto &item : items) {
+   for(const auto &item : items) {
       itemAmount++;
    }
 
@@ -28,10 +28,10 @@ void List::add() {
 
 void List::remove() {
    bool isRemoving{true};
-   while (isRemoving) {
+   while(isRemoving) {
       // output format
       std::cout << "Which item would you like to remove?" << '\n';
-      for (const auto &item : items) {
+      for(const auto &item : items) {
          std::cout << item.id << '\t';
          std::cout << item.name << '\t';
          std::cout << item.price << '\t';
@@ -41,9 +41,9 @@ void List::remove() {
       // which item to remove
       s_int rmChoice{0};
       std::cin >> rmChoice;
-      for (const auto &item : items) {
-         if (rmChoice == item.id) {
-            items.erase((items.begin() + item.id -1));
+      for(const auto &item : items) {
+         if(rmChoice == item.id) {
+            items.erase((items.begin() + item.id - 1));
          }
       }
 
@@ -52,14 +52,14 @@ void List::remove() {
       std::cout << "Keep removing? y/N?" << '\n';
       char inResponse{'y'};
       std::cin >> inResponse;
-      if (inResponse == 'n' || inResponse == 'N') {
+      if(inResponse == 'n' || inResponse == 'N') {
          isRemoving = false;
       }
    }
 
    // re-assign id's after removal
    int itemAmount{0};
-   for (const auto &item : items) {
+   for(const auto &item : items) {
       itemAmount++;
    }
 }
@@ -67,11 +67,11 @@ void List::remove() {
 void List::status() {
    // check if obj vector is empty
    int itemAmount{0};
-   for (const auto &item : items) {
+   for(const auto &item : items) {
       itemAmount++;
    }
-   if (itemAmount == 0) {
-      std::cout << "You haven't added any items. Returning to main menu." << '\n';
+   if(itemAmount == 0) {
+      std::cerr << "You haven't added any items. Returning to main menu." << '\n';
       return;
    }
 
@@ -83,7 +83,7 @@ void List::status() {
              << '\n';
    std::cout << "--------------------------------" << '\n';
    // display all items
-   for (const auto &item : items) {
+   for(const auto &item : items) {
       std::cout << item << '\n';
       std::cout << "--------------------------------" << '\n';
    }
