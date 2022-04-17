@@ -7,14 +7,17 @@
 // HEADER:
 #include "Menu.h"
 
-void Menu::display(sf::RenderWindow& window, const sf::Font &font, float SCREEN_WIDTH, float SCREEN_HEIGHT) {
+void Menu::display(sf::RenderWindow &window, const sf::Font &font, float SCREEN_WIDTH, float SCREEN_HEIGHT) {
    // fill text vecor
-   std::vector<sf::Text> mainMenuTxt = {sf::Text("Item List:", font, 32),
-                                        sf::Text("1. Check status", font, 16),
-                                        sf::Text("2. Add item", font, 16),
-                                        sf::Text("3. Remove item", font, 16),
-                                        sf::Text("4. Edit item", font, 16),
-                                        sf::Text("5. Quit", font, 16)};
+   const auto menuEntries = std::string("1. Check status\n") +
+                            "2. Add item\n" +
+                            "3. Remove item\n" +
+                            "4. Edit item\n" +
+                            "5. Quit";
+   std::vector<sf::Text> mainMenuTxt = {
+       sf::Text("Item List:", font, 32),
+       sf::Text(menuEntries, font, 16),
+   };
 
    // get initial text position
    sf::Vector2f textPos(SCREEN_WIDTH / 2.0, SCREEN_HEIGHT / 2.0);
