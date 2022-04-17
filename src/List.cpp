@@ -53,7 +53,7 @@ void List::remove() {
       char inResponse{'y'};
       std::cin >> inResponse;
       if (inResponse == 'n' || inResponse == 'N') {
-         break;
+         isRemoving = false;
       }
    }
 

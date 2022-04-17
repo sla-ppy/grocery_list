@@ -1,5 +1,10 @@
+// C++ specific headers:
 #include <iostream>
 
+// libs:
+#include "ncurses.h"
+
+// my headers:
 #include "List.h"
 
 using s_int = signed int;
@@ -8,6 +13,9 @@ using s_int = signed int;
 void cls() { std::cout << std::string(100, '\n'); }
 
 int main() {
+
+   // start ncurses mode
+   initscr();
 
    List list;
 
@@ -37,6 +45,9 @@ int main() {
          std::cout << "Choose a correct option! (1-4)" << '\n';
       }
    }
+
+   // stop ncurses mode
+   endwin();
 
    return 0;
 }
