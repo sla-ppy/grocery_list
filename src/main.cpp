@@ -22,7 +22,7 @@ int main() {
 
       // fixme: this is incorrect, we want the menu to own the font
       sf::Font font;
-      if(!font.loadFromFile("../assets/font/IBMPlexMono-Regular.ttf")) {
+      if(!font.loadFromFile("./assets/font/IBMPlexMono-Regular.ttf")) {
          std::cerr << "ERROR: Font wasn't able to load." << '\n';
       }
 
