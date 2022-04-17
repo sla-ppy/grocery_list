@@ -14,5 +14,9 @@ target_link_libraries(grocery_list sfml-graphics sfml-system sfml-window)
 add_custom_command(TARGET grocery_list POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_BINARY_DIR}/SFML/lib"
-        $<TARGET_FILE_DIR:grocery_list>)
+        "$<TARGET_FILE_DIR:grocery_list>")
 
+add_custom_command(TARGET grocery_list POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets"
+        "$<TARGET_FILE_DIR:grocery_list>/assets")
