@@ -2,20 +2,14 @@
 #include <iostream>
 
 // libs:
-#include "ncurses.h"
+#include <SFML/Graphics.hpp>
 
 // my headers:
 #include "List.h"
 
 using s_int = signed int;
 
-// clear screen
-void cls() { std::cout << std::string(100, '\n'); }
-
 int main() {
-
-   // start ncurses mode
-   initscr();
 
    List list;
 
@@ -26,7 +20,7 @@ int main() {
       std::cout << "1. Check status" << '\n';
       std::cout << "2. Add item" << '\n';
       std::cout << "3. Remove item" << '\n';
-      std::cout << "4. Clear screen" << '\n';
+      std::cout << "4. Edit item" << '\n';
       std::cout << "5. Quit" << '\n';
 
       // main menu
@@ -38,16 +32,13 @@ int main() {
       } else if (menuChoice == 3) {
          list.remove();
       } else if (menuChoice == 4) {
-         cls();
+         std::cout << "list.edit()" << '\n';
       } else if (menuChoice == 5) {
          inMenu = false;
       } else {
          std::cout << "Choose a correct option! (1-4)" << '\n';
       }
    }
-
-   // stop ncurses mode
-   endwin();
 
    return 0;
 }
