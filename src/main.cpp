@@ -12,15 +12,18 @@ using s_int = signed int;
 
 int main() {
 
-   s_int modeChoice{0};
+   // debug mode so we can both play with SFML and test functionality
    std::cout << "Choose render mode:" << '\n';
    std::cout << "1 - SFML mode" << '\n';
    std::cout << "2 - Terminal mode" << '\n';
+   s_int modeChoice{0};
    std::cin >> modeChoice;
-   if (modeChoice == 1) {
+
+   if(modeChoice == 1) {
       // init window
       const int        SCREEN_WIDTH{800};
       const int        SCREEN_HEIGHT{600};
+
       sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "My window");
 
       while(window.isOpen()) {
@@ -36,7 +39,7 @@ int main() {
          }
       }
 
-   } else if (modeChoice == 2) {
+   } else if(modeChoice == 2) {
       List list;
 
       s_int menuChoice{0};
@@ -47,7 +50,7 @@ int main() {
          std::cout << "2. Add item" << '\n';
          std::cout << "3. Remove item" << '\n';
          std::cout << "4. Edit item" << '\n';
-         std::cout << "5. Quit" << '\n';
+         std::cout << "0. Quit" << '\n';
 
          // main menu
          std::cin >> menuChoice;
@@ -58,7 +61,7 @@ int main() {
          } else if(menuChoice == 3) {
             list.remove();
          } else if(menuChoice == 4) {
-            std::cout << "list.edit()" << '\n';
+            list.edit();
          } else if(menuChoice == 5) {
             inMenu = false;
          } else {

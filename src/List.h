@@ -13,10 +13,10 @@ class List {
                            Item(4, "Cherry", 25.0, 15),
                            Item(5, "Pear", 15.0, 3)};
 
+   void status();
    void add();
    void remove();
    void edit();
-   void status();
 };
 
 #endif // LIST_H
