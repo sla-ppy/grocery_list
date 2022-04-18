@@ -20,21 +20,15 @@ int main() {
    while(window.isOpen()) {
       sf::Event event{};
 
-      // fixme: this is incorrect, we want the menu to own the font
-      sf::Font font;
-      if(!font.loadFromFile("./assets/font/IBMPlexMono-Regular.ttf")) {
-         std::cerr << "ERROR: Font wasn't able to load." << '\n';
-      }
-
-      Menu mainMenu;
-      // fixme: this is horrible, just wanted to make it work for now, refactor tomorrow
-      mainMenu.display(window, font, SCREEN_WIDTH, SCREEN_HEIGHT);
+      Menu::display(window, SCREEN_WIDTH, SCREEN_HEIGHT);
 
       while(window.pollEvent(event)) {
          if(event.type == sf::Event::Closed) {
             window.close();
+            return 0;
          }
       }
+      return 0;
    }
 
    List list;

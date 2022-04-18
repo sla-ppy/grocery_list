@@ -7,7 +7,7 @@
 
 class Menu {
  public:
-   void display(sf::RenderWindow& window, const sf::Font &font, float SCREEN_WIDTH, float SCREEN_HEIGHT);
+   static void display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HEIGHT);
 };
 
 #endif // GROCERY_LIST_MENU_H
