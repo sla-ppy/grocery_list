@@ -7,11 +7,18 @@
 // HEADER:
 #include "Menu.h"
 
-void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HEIGHT) {
+sf::Font Menu::loadFont() {
    sf::Font font;
    if(!font.loadFromFile("./assets/font/IBMPlexMono-Regular.ttf")) {
       std::cerr << "ERROR: Font wasn't able to load." << '\n';
    }
+
+   return font;
+}
+
+void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HEIGHT) {
+
+   sf::Font font = loadFont();
 
    // fill text vector
    const auto menuEntries = std::string("1. Check status\n") +

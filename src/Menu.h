@@ -7,6 +7,7 @@
 
 class Menu {
  public:
+   static sf::Font loadFont();
    static void display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HEIGHT);
 };
 
