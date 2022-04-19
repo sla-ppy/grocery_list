@@ -24,10 +24,12 @@ int main() {
       const int        SCREEN_WIDTH{800};
       const int        SCREEN_HEIGHT{600};
 
-      sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "My window");
+      sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Grocery List");
 
       while(window.isOpen()) {
          sf::Event event{};
+
+         window.display();
 
          Menu::display(window, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -50,7 +52,7 @@ int main() {
          std::cout << "2. Add item" << '\n';
          std::cout << "3. Remove item" << '\n';
          std::cout << "4. Edit item" << '\n';
-         std::cout << "0. Quit" << '\n';
+         std::cout << "5. Quit" << '\n';
 
          // main menu
          std::cin >> menuChoice;

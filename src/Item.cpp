@@ -5,7 +5,7 @@
 using s_int = signed int;
 
 // def. ctor
-Item::Item() : id{0}, name{"unnamed"}, price{0.0}, quantity{0} {}
+Item::Item() : id{0}, name{"unnamed"}, price{0.0f}, quantity{0} {}
 
 // member initializer list
 Item::Item(s_int _id, std::string _name, float _price, s_int _quantity)

@@ -7,11 +7,11 @@
 
 class List {
  public:
-   std::vector<Item> items{Item(1, "Apple", 50.0, 6),
-                           Item(2, "Banana", 30.0, 3),
-                           Item(3, "Orange", 40.0, 20),
-                           Item(4, "Cherry", 25.0, 15),
-                           Item(5, "Pear", 15.0, 3)};
+   std::vector<Item> items{Item(1, "Apple", 50.0f, 6),
+                           Item(2, "Banana", 30.0f, 3),
+                           Item(3, "Orange", 40.0f, 20),
+                           Item(4, "Cherry", 25.0f, 15),
+                           Item(5, "Pear", 15.0f, 3)};
 
    void status();
    void add();

@@ -137,7 +137,7 @@ void List::edit() {
                } else if(partChoice == 2) {
                   std::cout << "Enter new price: " << '\n';
 
-                  float newPrice{0.0};
+                  float newPrice{0.0f};
                   std::cin >> newPrice;
 
                   item.price = newPrice;
