@@ -33,6 +33,7 @@ void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HE
        sf::Text(menuEntries, font, 32),
    };
 
+   // FIXME: revise title and menu text code, clean up the code if needed
    // declare center text position
    sf::Vector2f centerPos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
@@ -43,13 +44,15 @@ void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HE
    mainMenuTitle.setOrigin(boundsVector);
    // orange
    mainMenuTitle.setFillColor(sf::Color(206, 122, 26, 19));
+
    sf::Vector2f titlePos(centerPos.x, centerPos.y - 125.0f);
    mainMenuTitle.setPosition(titlePos);
+
+   window.draw(mainMenuTitle);
 
    // display all texts inside vector
    float lastHeight{0};
    auto  tempPos = centerPos;
-   s_int textIndex{0};
    for(auto &text : mainMenuText) {
       // FIXME: have title as a separate object
       // center text
@@ -67,7 +70,21 @@ void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HE
       window.draw(text);
    }
 
-   window.draw(mainMenuTitle);
-
    window.display();
+
+   // TODO: highlight is selection. starts at 1, goes till 5, then start from one again to loop through the menu points
+   // TODO: iterate through, then we take the index and apply the correct part to it.
+   s_int highlightIndex{1};
+
+}
+
+void Menu::processInput() {
+   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { // NOLINT(bugprone-branch-clone)
+      // change menu highlight by one towards up
+   } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+      // change menu highlight by one towards down
+   }
+
+   // TODO: figure out quitting with escape, probably have to return event.type = sf::Event::Closed
+   if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {};
 }

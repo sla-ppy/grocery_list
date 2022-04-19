@@ -30,8 +30,8 @@ int main() {
          sf::Event event{};
 
          window.display();
-
          Menu::display(window, SCREEN_WIDTH, SCREEN_HEIGHT);
+         Menu::processInput();
 
          while(window.pollEvent(event)) {
             if(event.type == sf::Event::Closed) {
