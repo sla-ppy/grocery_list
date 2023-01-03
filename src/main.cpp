@@ -11,15 +11,14 @@
 using s_int = signed int;
 
 int main() {
-
    // debug mode so we can both play with SFML and test functionality
    std::cout << "Choose render mode:" << '\n';
    std::cout << "1 - SFML mode" << '\n';
-   std::cout << "2 - Terminal mode" << '\n';
-   s_int modeChoice{0};
-   std::cin >> modeChoice;
+   std::cout << "0 - Terminal mode" << '\n';
+   bool mode{0};
+   std::cin >> mode;
 
-   if(modeChoice == 1) {
+   if(mode) {
       // init window
       const int        SCREEN_WIDTH{800};
       const int        SCREEN_HEIGHT{600};
@@ -41,7 +40,7 @@ int main() {
          }
       }
 
-   } else if(modeChoice == 2) {
+   } else {
       List list;
 
       s_int menuChoice{0};
@@ -49,9 +48,9 @@ int main() {
       while(inMenu) {
          std::cout << "Seed:" << '\n';
          std::cout << "1. Check status" << '\n';
-         std::cout << "2. Add item" << '\n';
-         std::cout << "3. Remove item" << '\n';
-         std::cout << "4. Edit item" << '\n';
+         std::cout << "2. Add achievement" << '\n';
+         std::cout << "3. Remove achievement" << '\n';
+         std::cout << "4. Edit achievement" << '\n';
          std::cout << "5. Quit" << '\n';
 
          // main menu
@@ -67,12 +66,10 @@ int main() {
          } else if(menuChoice == 5) {
             inMenu = false;
          } else {
-            std::cerr << "Choose a correct option! (1-4)" << '\n';
+            std::cerr << "Choose a correct option! (1-5)" << '\n';
          }
       }
-   } else {
-      std::cerr << "Choose between SFML or Terminal mode" << '\n';
    }
-
+   
    return 0;
 }

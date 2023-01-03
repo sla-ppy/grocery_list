@@ -22,12 +22,12 @@ void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HE
 
    sf::Font font = loadFont();
 
-   sf::Text mainMenuTitle("Grocery List:\n", font, 48);
+   sf::Text mainMenuTitle("Achievement:\n", font, 48);
    // fill text vector
    const auto menuEntries = std::string("1. Check status\n") +
-                            "2. Add item\n" +
-                            "3. Remove item\n" +
-                            "4. Edit item\n" +
+                            "2. Add achievement\n" +
+                            "3. Remove achievement\n" +
+                            "4. Edit achievement\n" +
                             "5. Quit";
    std::vector<sf::Text> mainMenuText = {
        sf::Text(menuEntries, font, 32),
@@ -74,7 +74,7 @@ void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HE
 
    // TODO: highlight is selection. starts at 1, goes till 5, then start from one again to loop through the menu points
    // TODO: iterate through, then we take the index and apply the correct part to it.
-   s_int highlightIndex{1};
+   s_int highlighted{1};
 
 }
 

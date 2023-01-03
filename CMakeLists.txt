@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(SFML)
 include_directories("SFML/include")
 
-add_executable(seed src/main.cpp src/Item.cpp src/Item.h src/List.cpp src/List.h src/Menu.cpp src/Menu.h)
+add_executable(seed src/main.cpp src/Achievement.cpp src/Achievement.h src/List.cpp src/List.h src/Menu.cpp src/Menu.h)
 
 target_link_libraries(seed sfml-graphics sfml-system sfml-window)
 
