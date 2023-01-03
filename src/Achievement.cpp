@@ -5,17 +5,18 @@
 using s_int = signed int;
 
 // def. ctor
-Achievement::Achievement() : id{0}, name{"unnamed"}, price{0.0f}, quantity{0} {}
+Achievement::Achievement() : id{}, description{"No description"}, type{'X'}, category{"No category"}, progress{0.0} {}
 
 // member initializer list
-Achievement::Achievement(s_int _id, std::string _name, float _price, s_int _quantity)
-    : id{_id}, name{std::move(_name)}, price{_price}, quantity{_quantity} {}
+Achievement::Achievement(s_int _id, std::string _description, char _type, std::string _category, float _progress)
+    : id{_id}, description{std::move(_description)}, type{_type}, category{std::move(_category)}, progress{_progress} {}
 
 // overloading the << operator
 std::ostream &operator<<(std::ostream &os, const Achievement &achievement) {
    os << achievement.id << '\t';
-   os << achievement.name << '\t';
-   os << achievement.price << '\t';
-   os << achievement.quantity << '\t';
+   os << achievement.description << '\t';
+   os << achievement.type << '\t';
+   os << achievement.category << '\t';
+   os << achievement.progress << '\t';
    return os;
 }

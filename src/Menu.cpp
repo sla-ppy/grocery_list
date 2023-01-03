@@ -22,50 +22,50 @@ void Menu::display(sf::RenderWindow &window, float SCREEN_WIDTH, float SCREEN_HE
 
    sf::Font font = loadFont();
 
-   sf::Text mainMenuTitle("Achievement:\n", font, 48);
+   sf::Text main_menu_title("Achievement:\n", font, 48);
    // fill text vector
-   const auto menuEntries = std::string("1. Check status\n") +
-                            "2. Add achievement\n" +
-                            "3. Remove achievement\n" +
-                            "4. Edit achievement\n" +
-                            "5. Quit";
-   std::vector<sf::Text> mainMenuText = {
-       sf::Text(menuEntries, font, 32),
+   const auto menu_entries = std::string("1. Check status\n") +
+                             "2. Add achievement\n" +
+                             "3. Remove achievement\n" +
+                             "4. Edit achievement\n" +
+                             "5. Quit";
+   std::vector<sf::Text> main_menu_text = {
+       sf::Text(menu_entries, font, 32),
    };
 
    // FIXME: revise title and menu text code, clean up the code if needed
    // declare center text position
-   sf::Vector2f centerPos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+   sf::Vector2f center_pos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
    // display main title
-   sf::FloatRect titleTextBounds = mainMenuTitle.getGlobalBounds();
-   sf::Vector2f boundsVector((titleTextBounds.left + titleTextBounds.width) / 2.0f, (titleTextBounds.top + titleTextBounds.height) / 2.0f);
+   sf::FloatRect title_text_bounds = main_menu_title.getGlobalBounds();
+   sf::Vector2f bounds_vector((title_text_bounds.left + title_text_bounds.width) / 2.0f, (title_text_bounds.top + title_text_bounds.height) / 2.0f);
 
-   mainMenuTitle.setOrigin(boundsVector);
+   main_menu_title.setOrigin(bounds_vector);
    // orange
-   mainMenuTitle.setFillColor(sf::Color(206, 122, 26, 19));
+   main_menu_title.setFillColor(sf::Color(206, 122, 26, 19));
 
-   sf::Vector2f titlePos(centerPos.x, centerPos.y - 125.0f);
-   mainMenuTitle.setPosition(titlePos);
+   sf::Vector2f titlePos(center_pos.x, center_pos.y - 125.0f);
+   main_menu_title.setPosition(titlePos);
 
-   window.draw(mainMenuTitle);
+   window.draw(main_menu_title);
 
    // display all texts inside vector
-   float lastHeight{0};
-   auto  tempPos = centerPos;
-   for(auto &text : mainMenuText) {
+   float last_height{0};
+   auto  temp_pos = center_pos;
+   for(auto &text : main_menu_text) {
       // FIXME: have title as a separate object
       // center text
-      sf::FloatRect textBounds = text.getGlobalBounds();
-      text.setOrigin(sf::Vector2f((textBounds.left + textBounds.width) / 2.0f, (textBounds.top + textBounds.height) / 2.0f));
+      sf::FloatRect text_bounds = text.getGlobalBounds();
+      text.setOrigin(sf::Vector2f((text_bounds.left + text_bounds.width) / 2.0f, (text_bounds.top + text_bounds.height) / 2.0f));
 
       // orange
       text.setFillColor(sf::Color(206, 122, 26, 19));
 
       // line spacing
-      tempPos.y += lastHeight;
-      lastHeight = text.getGlobalBounds().height;
-      text.setPosition(tempPos);
+      temp_pos.y += last_height;
+      last_height = text.getGlobalBounds().height;
+      text.setPosition(temp_pos);
 
       window.draw(text);
    }

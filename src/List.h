@@ -7,11 +7,11 @@
 
 class List {
  public:
-   std::vector<Achievement> achievements{Achievement(1, "Apple", 50.0f, 6),
-                                         Achievement(2, "Banana", 30.0f, 3),
-                                         Achievement(3, "Orange", 40.0f, 20),
-                                         Achievement(4, "Cherry", 25.0f, 15),
-                                         Achievement(5, "Pear", 15.0f, 3)};
+   std::vector<Achievement> achievements{Achievement(0 ,"Exercise 7 times a week!", 'C', "Health", 20.0),
+                                         Achievement(1, "Brush your teeth 2 times today", 'D', "Health", 51.35),
+                                         Achievement(2, "Study for eternity", 'C', "Studies", 100.0),
+                                         Achievement(3, "Pick an apple in virtual reality", 'C', "Gaming", 36.315),
+                                         Achievement(4, "Work for 5 seconds", 'T', "Work", 0.0)};
 
    void status();
    void add();

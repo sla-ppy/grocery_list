@@ -20,8 +20,8 @@ int main() {
 
    if(mode) {
       // init window
-      const int        SCREEN_WIDTH{800};
-      const int        SCREEN_HEIGHT{600};
+      const int        SCREEN_WIDTH{336}; // 1920 * 0,175
+      const int        SCREEN_HEIGHT{1080};
 
       sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Seed");
 
@@ -43,9 +43,9 @@ int main() {
    } else {
       List list;
 
-      s_int menuChoice{0};
-      bool  inMenu{true};
-      while(inMenu) {
+      s_int menu_choice{0};
+      bool  menu{true};
+      while(menu) {
          std::cout << "Seed:" << '\n';
          std::cout << "1. Check status" << '\n';
          std::cout << "2. Add achievement" << '\n';
@@ -54,22 +54,22 @@ int main() {
          std::cout << "5. Quit" << '\n';
 
          // main menu
-         std::cin >> menuChoice;
-         if(menuChoice == 1) {
+         std::cin >> menu_choice;
+         if(menu_choice == 1) {
             list.status();
-         } else if(menuChoice == 2) {
+         } else if(menu_choice == 2) {
             list.add();
-         } else if(menuChoice == 3) {
+         } else if(menu_choice == 3) {
             list.remove();
-         } else if(menuChoice == 4) {
+         } else if(menu_choice == 4) {
             list.edit();
-         } else if(menuChoice == 5) {
-            inMenu = false;
+         } else if(menu_choice == 5) {
+             menu = false;
          } else {
             std::cerr << "Choose a correct option! (1-5)" << '\n';
          }
       }
    }
-   
+
    return 0;
 }
