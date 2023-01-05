@@ -1,6 +1,8 @@
 #include "List.h"
 #include "Achievement.h"
 
+// TODO: add categories for achievements
+
 void List::status() {
     // check if obj vector is empty
     int count{0};
