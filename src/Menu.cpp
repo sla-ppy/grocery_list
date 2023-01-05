@@ -5,11 +5,6 @@
 
 using s_int = signed int;
 
-Menu::Menu(int _screen_width, int _screen_height) {
-    m_screen_width = _screen_width;
-    m_screen_height = _screen_height;
-}
-
 sf::Font Menu::loadFont() {
     sf::Font font;
     if (!font.loadFromFile("./assets/font/IBMPlexMono-Regular.ttf")) {
@@ -19,42 +14,42 @@ sf::Font Menu::loadFont() {
     return font;
 }
 
-void Menu::init(sf::RenderWindow &window) {
-    sf::Font font = loadFont();
+Menu::Menu(int _screen_width, int _screen_height) {
+    m_screen_width = _screen_width;
+    m_screen_height = _screen_height;
 
-    sf::Text title("Achievement:\n", font, 48);
-    // fill text vector
+    m_font = loadFont();
+
     const auto entries = std::string("1. Check status\n") +
-                         "2. Add achievement\n" +
-                         "3. Remove achievement\n" +
-                         "4. Edit achievement\n" +
-                         "5. Quit";
-    m_entries = { sf::Text(entries, font, 32) };
+                                "2. Add achievement\n" +
+                                "3. Remove achievement\n" +
+                                "4. Edit achievement\n" +
+                                "5. Quit";
 
-    // declare center text position
+    m_entries = { sf::Text(entries, m_font, 32) };
+}
+
+void Menu::init(sf::RenderWindow &window) {
     sf::Vector2f center(m_screen_width / 2.0f, m_screen_height / 2.0f);
 
-    // display main title
-    sf::FloatRect title_text_bounds = title.getGlobalBounds();
-    sf::Vector2f bounds_vector((title_text_bounds.left + title_text_bounds.width) / 2.0f,
-                               (title_text_bounds.top + title_text_bounds.height) / 2.0f);
+    sf::Text title("Achievements", m_font, 48);
+    // FIXME: text shadowing, from using globalbounds?
+    sf::FloatRect title_bounds = title.getGlobalBounds();
+    sf::Vector2f bounds_vector((title_bounds.left + title_bounds.width) / 2.0f,
+                               (title_bounds.top + title_bounds.height) / 2.0f);
     title.setOrigin(bounds_vector);
-    title.setFillColor(ORANGE);    // orange
-    sf::Vector2f titlePos(center.x, center.y - 125.0f);
+    title.setFillColor(ORANGE);
+    sf::Vector2f titlePos(center.x, center.y - 150.0f);
     title.setPosition(titlePos);
     window.draw(title);
 
-    // display all texts inside vector
-    float last_height{0};
+    float last_height{0.0f};
     auto pos = center;
-    for (auto &text: Menu::m_entries) {
-        // center text
-        sf::FloatRect bounds = text.getGlobalBounds();
-        text.setOrigin(sf::Vector2f(
-                (bounds.left + bounds.width) / 2.0f,
-                (bounds.top + bounds.height) / 2.0f));
 
-        text.setFillColor(ORANGE);   // orange
+    for(auto &text : m_entries) {
+        sf::FloatRect bounds = text.getGlobalBounds();
+        text.setOrigin(sf::Vector2f((bounds.left + bounds.width) / 2.0f, (bounds.top + bounds.height) / 2.0f));
+        text.setFillColor(ORANGE);
 
         // line spacing
         pos.y += last_height;
@@ -68,9 +63,9 @@ void Menu::init(sf::RenderWindow &window) {
 }
 void Menu::processInput(sf::RenderWindow &window, sf::Event &event) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) or sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        // change menu highlight by one towards up
+        m_highlighted++;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) or sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        // change menu highlight by one towards down
+        m_highlighted--;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -81,15 +76,18 @@ void Menu::processInput(sf::RenderWindow &window, sf::Event &event) {
             sf::Vector2f size (310.0, 315.0);
             rect.setSize(size);
             window.draw(rect);
-
-            for (auto &text : m_entries) {
-                text.setFillColor(sf::Color(13, 123, 111, 19));
-            }
-
-            window.close();
+            window.display();
+            // window.close();
         }
     };
 }
 void Menu::update(sf::RenderWindow &window) {
-    // do the thing!!!!!!
+
+    // 0 - noneo of them are highlighted
+    // 1-5 all others are highlighted
+    // guarantee that 5 is max
+    if (m_highlighted == 1) {
+        m_entries.front().setFillColor(sf::Color(255, 0, 0, 255));
+        window.display();
+    }
 }
