@@ -18,32 +18,36 @@ int main() {
     bool mode{1};
     //std::cin >> mode;
 
-    if (mode) {
-        // init window
-        // TODO: get screen data automatically based on user hardware
-        // TODO: update menu entries based on screen size
-        int screen_width{1920};
-        int screen_height{1080};
+if (mode) {
+    // init window
+    // TODO: get screen data automatically based on user hardware
+    // TODO: update menu entries based on screen size
+    int screen_width{1920};
+    int screen_height{1080};
 
-        sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Seed");
+    sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Seed");
 
-        while (window.isOpen()) {
-            sf::Event event{};
+    while (window.isOpen()) {
+        sf::Event event{};
 
-            Menu menu(screen_width, screen_height);
-            menu.init(window);
-            menu.processInput(window, event);
-            menu.update(window);
+        Menu menu(screen_width, screen_height);
+        menu.init(window);
+        menu.processInput(window, event);
+        menu.update(window);
 
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed) {
-                    window.close();
-                    return 0;
-                }
+        while (window.pollEvent(event)) {
+            // if (event.type == sf::Event::Resized) { screen_width = event.size.width; screen_height = event.size.height; }
+            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
+                window.close();
+
+
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                return 0;
             }
         }
-
-    } else {
+    }
+} else {
         List list;
 
         s_int menu_choice{0};

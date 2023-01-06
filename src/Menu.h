@@ -14,14 +14,17 @@ private:
     int m_screen_width;
     int m_screen_height;
 
-    sf::Font m_font;
     // FIXME: m_entries only stores a single object (all of the texts in a clump), perhaps its better to store them individually
+    sf::Font m_font;
+    std::vector<std::string> texts = { "Check status\n",
+                                       "Add achievement\n",
+                                       "Remove achievement\n",
+                                       "Edit achievement\n",
+                                       "Quit\n" };
     std::vector<sf::Text> m_entries;
     s_int m_highlighted{0};
 
 public:
-    static sf::Font loadFont();
-
     Menu(int _screen_width, int _screen_height);
 
     void init(sf::RenderWindow &window);
