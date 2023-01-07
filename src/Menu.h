@@ -6,6 +6,7 @@
 
 // LIB:
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 using s_int = signed int;
 

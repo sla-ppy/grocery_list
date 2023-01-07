@@ -1,3 +1,6 @@
+#define menu_enter "./assets/sound/sound.wav"
+#define menu_select "./assets/sound/finalized.wav"
+
 // C++:
 #include <iostream>
 
@@ -31,20 +34,13 @@ if (mode) {
     Menu menu(screen_width, screen_height);
     menu.init(window);
 
+    // FIXME: botched sounds, likely wrong usage of audio module
+    sf::SoundBuffer buffer;
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+
     while (window.isOpen()) {
         sf::Event event{};
-
-        /* TODO: add sound?
-        sf::SoundBuffer buffer;
-        // Load it from a file
-        if (buffer.loadFromFile("sound.wav")) {
-            sf::Sound sound;
-            sound.setBuffer(buffer);
-            sound.play();
-        } else {
-            std::cerr << "Sound file didn't load properly!" << '\n';
-        }
-        */
 
         menu.processInput(window, event);
         menu.update(window);
@@ -55,22 +51,35 @@ if (mode) {
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::W) {
                     menu.m_highlighted--;
+                    buffer.loadFromFile(menu_select);
+                    sound.play();
                 }
                 if (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S) {
                     menu.m_highlighted++;
+                    buffer.loadFromFile(menu_select);
+                    sound.play();
                 }
+
 
                 if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 0) {
                     std::cout << "Check status" << '\n';
+                    buffer.loadFromFile(menu_enter);
+                    sound.play();
                 }
                 if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 1) {
                     std::cout << "Add achievement" << '\n';
+                    buffer.loadFromFile(menu_enter);
+                    sound.play();
                 }
                 if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 2) {
                     std::cout << "Remove achievement" << '\n';
+                    buffer.loadFromFile(menu_enter);
+                    sound.play();
                 }
                 if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 3) {
                     std::cout << "Edit achievement" << '\n';
+                    buffer.loadFromFile(menu_enter);
+                    sound.play();
                 }
             }
 

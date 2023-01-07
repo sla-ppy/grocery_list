@@ -8,7 +8,7 @@ include_directories("SFML/include")
 
 add_executable(seed src/main.cpp src/Achievement.cpp src/Achievement.h src/List.cpp src/List.h src/Menu.cpp src/Menu.h)
 
-target_link_libraries(seed sfml-graphics sfml-system sfml-window)
+target_link_libraries(seed sfml-graphics sfml-system sfml-window sfml-audio)
 
 # copy dll files into debug directory
 add_custom_command(TARGET seed POST_BUILD
