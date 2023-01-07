@@ -1,3 +1,4 @@
-# seed
+# Achievements
+My first graphical program created with SFML 2.5.1.
 
-The online archive that centralizes development material, so you dont have to go looking for it in some dusty folder.
+The incentive is to gamify real life through todo-s.
