@@ -38,13 +38,33 @@ if (mode) {
 
         while (window.pollEvent(event)) {
             // if (event.type == sf::Event::Resized) { screen_width = event.size.width; screen_height = event.size.height; }
-            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::W)) {
-                menu.m_highlighted--;
+            // controls
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::W) {
+                    menu.m_highlighted--;
+                }
+                if (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S) {
+                    menu.m_highlighted++;
+                }
+
+                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 0) {
+                    std::cout << "Check status" << '\n';
+                }
+                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 1) {
+                    std::cout << "Add achievement" << '\n';
+                }
+                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 2) {
+                    std::cout << "Remove achievement" << '\n';
+                }
+                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 3) {
+                    std::cout << "Edit achievement" << '\n';
+                }
             }
-            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S)) {
-                menu.m_highlighted++;
-            }
-            if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape) {
+
+            // quit
+            if (event.type == sf::Event::Closed
+            || event.key.code == sf::Keyboard::Escape
+            || event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 4) {
                 window.close();
                 return 0;
             }
