@@ -13,7 +13,9 @@ Menu::Menu(int _screen_width, int _screen_height) {
     if (!m_font.loadFromFile("./assets/font/IBMPlexMono-Regular.ttf")) {
         std::cerr << "ERROR: Font didn't load properly!" << '\n';
     }
-    
+
+    m_title = sf::Text("Achievements", m_font, 48);
+
     for(const auto& text : texts) {
         m_entries.emplace_back(sf::Text(text, m_font, 32));
     };
@@ -22,15 +24,14 @@ Menu::Menu(int _screen_width, int _screen_height) {
 void Menu::init(sf::RenderWindow &window) {
     sf::Vector2f center(m_screen_width / 2.0f, m_screen_height / 2.0f);
 
-    sf::Text title("Achievements", m_font, 48);
-    sf::FloatRect title_bounds = title.getGlobalBounds();
+    sf::FloatRect title_bounds = m_title.getGlobalBounds();
     sf::Vector2f bounds_vector((title_bounds.left + title_bounds.width) / 2.0f,
                                (title_bounds.top + title_bounds.height) / 2.0f);
-    title.setOrigin(bounds_vector);
-    title.setFillColor(ORANGE);
-    sf::Vector2f titlePos(center.x, center.y - 150.0f);
-    title.setPosition(titlePos);
-    window.draw(title);
+    m_title.setOrigin(bounds_vector);
+    m_title.setFillColor(ORANGE);
+    sf::Vector2f titlePos(center.x, center.y - 200.0f);
+    m_title.setPosition(titlePos);
+    window.draw(m_title);
 
     float last_height{0.0f};
     auto pos = center;
@@ -48,8 +49,6 @@ void Menu::init(sf::RenderWindow &window) {
 
         window.draw(text);
     }
-
-    window.display();
 }
 void Menu::processInput(sf::RenderWindow &window, sf::Event &event) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -72,10 +71,20 @@ void Menu::update(sf::RenderWindow &window) {
         m_highlighted = 0;
     }
 
+    // render all obj as orange
+    for(auto &text : m_entries) {
+        text.setFillColor(ORANGE);
+    }
+    // change the specific one
     m_entries[m_highlighted].setFillColor(WHITE);
     window.draw(m_entries[m_highlighted]);
 
-    // 0 - noneo of them are highlighted
-    // 1-5 all others are highlighted
-    // guarantee that 5 is max
+    // draw all objects
+    // TODO: for the future it could be a good idea to group together all the objects needing to be drawn into one spot?
+    for(auto &text : m_entries) {
+        window.draw(m_title);
+        window.draw(text);
+    }
+
+    window.display();
 }

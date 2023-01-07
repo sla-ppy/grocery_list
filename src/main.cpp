@@ -25,23 +25,26 @@ if (mode) {
     int screen_width{1920};
     int screen_height{1080};
 
-    sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Seed");
+    sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Achievements");
+
+    Menu menu(screen_width, screen_height);
+    menu.init(window);
 
     while (window.isOpen()) {
         sf::Event event{};
 
-        Menu menu(screen_width, screen_height);
-        menu.init(window);
         menu.processInput(window, event);
         menu.update(window);
 
         while (window.pollEvent(event)) {
             // if (event.type == sf::Event::Resized) { screen_width = event.size.width; screen_height = event.size.height; }
-            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
-                window.close();
-
-
-            if (event.type == sf::Event::Closed) {
+            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::W)) {
+                menu.m_highlighted--;
+            }
+            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S)) {
+                menu.m_highlighted++;
+            }
+            if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape) {
                 window.close();
                 return 0;
             }
