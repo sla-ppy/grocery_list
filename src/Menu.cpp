@@ -1,4 +1,4 @@
-#define ORANGE sf::Color(206, 122, 26, 19)
+#define ORANGE sf::Color(206, 122, 26, 255)
 #define WHITE sf::Color(255, 255, 255, 255)
 #define BLACK sf::Color(0, 0, 0, 255)
 
@@ -69,7 +69,7 @@ void Menu::processInput(sf::RenderWindow &window, sf::Event &event) {
 }
 
 void Menu::update(sf::RenderWindow &window) {
-    window.clear(BLACK);
+    window.clear();
 
     // guarantee and constraint correct menu entry loop
     if (m_highlighted < 0) {

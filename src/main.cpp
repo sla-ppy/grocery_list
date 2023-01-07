@@ -3,6 +3,7 @@
 
 // LIB:
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // HEADER:
 #include "List.h"
@@ -32,6 +33,18 @@ if (mode) {
 
     while (window.isOpen()) {
         sf::Event event{};
+
+        /* TODO: add sound?
+        sf::SoundBuffer buffer;
+        // Load it from a file
+        if (buffer.loadFromFile("sound.wav")) {
+            sf::Sound sound;
+            sound.setBuffer(buffer);
+            sound.play();
+        } else {
+            std::cerr << "Sound file didn't load properly!" << '\n';
+        }
+        */
 
         menu.processInput(window, event);
         menu.update(window);
