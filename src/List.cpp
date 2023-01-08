@@ -1,12 +1,52 @@
+#include <fstream>
+
 #include "List.h"
 #include "Achievement.h"
 
 // TODO: add categories for achievements
 
+
+
+List::List(const std::string &file_path) {
+    std::fstream file;
+    file.open(file_path);
+
+    if (file.is_open()) {
+        std::string line;
+        std::vector<std::string> parts;
+        int i{0};
+        int line_count{5};
+
+        // FIXME: currently our input file contains an extra line to get around the issue,
+        // FIXME: however at the very last line we never reach (i>3) since it will be 3 and the last line wont get included in the output
+        while (getline(file, line, ';')) {
+            if (i > 3) {
+                i = 0;
+                Achievement achievement = Achievement(parts[0], parts[1], parts[2], std::stof(parts[3]));
+                m_achievements.emplace_back(achievement);
+                parts.clear();
+            }
+
+            parts.emplace_back(line);
+            i++;
+        }
+    } else {
+        std::cerr << "File didn't open successfully when creating the list!" << '\n';
+    }
+
+    file.close();
+
+    for (auto i : m_achievements) {
+        std::cout << i << '\n';
+    }
+
+    std::cout << '\n';
+}
+
 void List::status() {
     // check if obj vector is empty
     int count{0};
-    for (const auto &achievement: achievements) {
+    for (const auto &achievement: m_achievements) {
         count++;
     }
     if (count == 0) {
@@ -24,21 +64,22 @@ void List::status() {
               << '\n';
     std::cout << "--------------------------------------------" << '\n';
     // display all achievements
-    for (const auto &achievement: achievements) {
+    for (const auto &achievement: m_achievements) {
         std::cout << achievement << '\n';
         std::cout << "--------------------------------------------" << '\n';
     }
     std::cout << "############################################" << '\n';
 }
+
 void List::add() {
     // assign id based on count
     int count{1};
-    for (const auto &achievement: achievements) {
+    for (const auto &achievement: m_achievements) {
         count++;
     }
 
     std::string description{};
-    char type{'X'};
+    std::string type{'X'};
     std::string category{};
     float progress{0.0};
 
@@ -55,15 +96,17 @@ void List::add() {
     std::cin >> progress;
     // TODO: guarantee correct input data type by using std::cin.ignore and if (std::cin >> x) which reads if data was succesfully read into variable
     // add new obj
-    Achievement achievement{count, description, type, category, progress};
-    achievements.push_back(achievement);
+    // FIXME: add id count here
+    Achievement achievement{description, type, category, progress};
+    m_achievements.push_back(achievement);
 }
+
 void List::remove() {
     bool removing{true};
     while (removing) {
         // output format
         std::cout << "Which achievement would you like to remove?" << '\n';
-        for (const auto &achievement: achievements) {
+        for (const auto &achievement: m_achievements) {
             std::cout << achievement.id << '\t',
                     std::cout << achievement.description << '\t',
                     std::cout << achievement.type << '\t',
@@ -75,9 +118,9 @@ void List::remove() {
         std::cin >> remove_choice;
 
         // removal
-        for (const auto &achievement: achievements) {
+        for (const auto &achievement: m_achievements) {
             if (remove_choice == achievement.id) {
-                achievements.erase((achievements.begin() + achievement.id - 1));
+                m_achievements.erase((m_achievements.begin() + achievement.id - 1));
             }
         }
 
@@ -92,18 +135,19 @@ void List::remove() {
 
         // reassign id's after each removal
         int count{1};
-        for (auto &achievement: achievements) {
+        for (auto &achievement: m_achievements) {
             achievement.id = count;
             count++;
         }
     }
 }
+
 void List::edit() {
     bool is_editing{true};
     while (is_editing) {
         std::cout << "Which achievement would you like to edit?" << '\n';
         std::cout << "(0) to quit" << '\n';
-        for (const auto &achievement: achievements) {
+        for (const auto &achievement: m_achievements) {
             std::cout << achievement.id << '\t',
                     std::cout << achievement.description << '\t';
         }
@@ -112,7 +156,7 @@ void List::edit() {
         int edit_choice{1};
         std::cin >> edit_choice;
 
-        for (auto &achievement: achievements) {
+        for (auto &achievement: m_achievements) {
             if (edit_choice == achievement.id) {
 
                 bool is_editing_part{true};

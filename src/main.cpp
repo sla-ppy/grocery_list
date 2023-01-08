@@ -17,81 +17,84 @@ int main() {
     std::cout << "Choose render mode:" << '\n';
     std::cout << "1 - SFML mode" << '\n';
     std::cout << "0 - Terminal mode" << '\n';
-    bool mode{1};
+    std::cout << '\n';
+    bool mode{0};
     //std::cin >> mode;
 
-if (mode) {
-    // init window
-    // TODO: get screen data automatically based on user hardware
-    // TODO: update menu entries based on screen size
-    int screen_width{1920};
-    int screen_height{1080};
+    if (mode) {
+        // init window
+        // TODO: get screen data automatically based on user hardware
+        // TODO: update menu entries based on screen size
+        int screen_width{1920};
+        int screen_height{1080};
 
-    sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Achievements");
+        sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Achievements");
 
-    Menu menu(screen_width, screen_height);
-    menu.init(window);
+        Menu menu(screen_width, screen_height);
+        menu.init(window);
 
-    // FIXME: botched sounds, likely wrong usage of audio module
-    sf::SoundBuffer buffer;
-    sf::Sound sound;
-    sound.setBuffer(buffer);
+        // FIXME: botched sounds, likely wrong usage of audio module
+        sf::SoundBuffer buffer;
+        sf::Sound sound;
+        sound.setBuffer(buffer);
 
-    while (window.isOpen()) {
-        sf::Event event{};
+        while (window.isOpen()) {
+            sf::Event event{};
 
-        menu.processInput(window, event);
-        menu.update(window);
+            menu.processInput(window, event);
+            menu.update(window);
 
-        while (window.pollEvent(event)) {
-            // if (event.type == sf::Event::Resized) { screen_width = event.size.width; screen_height = event.size.height; }
-            // controls
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::W) {
-                    menu.m_highlighted--;
-                    buffer.loadFromFile(menu_select);
-                    sound.play();
+            while (window.pollEvent(event)) {
+                // if (event.type == sf::Event::Resized) { screen_width = event.size.width; screen_height = event.size.height; }
+                // controls
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::W) {
+                        menu.m_highlighted--;
+                        buffer.loadFromFile(menu_select);
+                        sound.play();
+                    }
+                    if (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S) {
+                        menu.m_highlighted++;
+                        buffer.loadFromFile(menu_select);
+                        sound.play();
+                    }
+
+
+                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 0) {
+                        std::cout << "Check status" << '\n';
+                        buffer.loadFromFile(menu_enter);
+                        sound.play();
+                    }
+                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 1) {
+                        std::cout << "Add achievement" << '\n';
+                        buffer.loadFromFile(menu_enter);
+                        sound.play();
+                    }
+                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 2) {
+                        std::cout << "Remove achievement" << '\n';
+                        buffer.loadFromFile(menu_enter);
+                        sound.play();
+                    }
+                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 3) {
+                        std::cout << "Edit achievement" << '\n';
+                        buffer.loadFromFile(menu_enter);
+                        sound.play();
+                    }
                 }
-                if (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S) {
-                    menu.m_highlighted++;
-                    buffer.loadFromFile(menu_select);
-                    sound.play();
-                }
 
-
-                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 0) {
-                    std::cout << "Check status" << '\n';
-                    buffer.loadFromFile(menu_enter);
-                    sound.play();
+                // quit
+                if (event.type == sf::Event::Closed
+                    || event.key.code == sf::Keyboard::Escape
+                    || event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 4) {
+                    window.close();
+                    return 0;
                 }
-                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 1) {
-                    std::cout << "Add achievement" << '\n';
-                    buffer.loadFromFile(menu_enter);
-                    sound.play();
-                }
-                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 2) {
-                    std::cout << "Remove achievement" << '\n';
-                    buffer.loadFromFile(menu_enter);
-                    sound.play();
-                }
-                if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 3) {
-                    std::cout << "Edit achievement" << '\n';
-                    buffer.loadFromFile(menu_enter);
-                    sound.play();
-                }
-            }
-
-            // quit
-            if (event.type == sf::Event::Closed
-            || event.key.code == sf::Keyboard::Escape
-            || event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 4) {
-                window.close();
-                return 0;
             }
         }
-    }
-} else {
-        List list;
+    } else {
+
+        std::string file_path("./assets/data.csv");
+        List list(file_path);
 
         int menu_choice{0};
         bool menu{true};
