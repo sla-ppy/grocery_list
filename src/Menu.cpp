@@ -5,8 +5,6 @@
 // HEADER:
 #include "Menu.h"
 
-using s_int = signed int;
-
 Menu::Menu(int _screen_width, int _screen_height) {
     m_screen_width = _screen_width;
     m_screen_height = _screen_height;
@@ -49,7 +47,6 @@ void Menu::init(sf::RenderWindow &window) {
         text.setPosition(pos);
     }
 }
-
 void Menu::processInput(sf::RenderWindow &window, sf::Event &event) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         if (event.type == sf::Event::Closed) {
@@ -67,9 +64,8 @@ void Menu::processInput(sf::RenderWindow &window, sf::Event &event) {
         }
     };
 }
-
 void Menu::update(sf::RenderWindow &window) {
-    window.clear();
+    window.clear(BLACK);
 
     // guarantee and constraint correct menu entry loop
     if (m_highlighted < 0) {

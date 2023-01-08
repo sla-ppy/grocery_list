@@ -30,7 +30,6 @@ void List::status() {
     }
     std::cout << "############################################" << '\n';
 }
-
 void List::add() {
     // assign id based on count
     int count{1};
@@ -59,7 +58,6 @@ void List::add() {
     Achievement achievement{count, description, type, category, progress};
     achievements.push_back(achievement);
 }
-
 void List::remove() {
     bool removing{true};
     while (removing) {
@@ -73,7 +71,7 @@ void List::remove() {
         }
 
         // which to remove
-        s_int remove_choice{0};
+        int remove_choice{0};
         std::cin >> remove_choice;
 
         // removal
@@ -100,7 +98,6 @@ void List::remove() {
         }
     }
 }
-
 void List::edit() {
     bool is_editing{true};
     while (is_editing) {
@@ -112,7 +109,7 @@ void List::edit() {
         }
 
         // which achievement to edit
-        s_int edit_choice{1};
+        int edit_choice{1};
         std::cin >> edit_choice;
 
         for (auto &achievement: achievements) {
@@ -126,7 +123,7 @@ void List::edit() {
                     std::cout << "(0) to quit" << '\n';
                     std::cout << achievement.description << '\t';
 
-                    s_int part_choice{0};
+                    int part_choice{0};
                     std::cin >> part_choice;
 
                     if (part_choice == 1) {

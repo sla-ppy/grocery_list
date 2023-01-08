@@ -8,8 +8,6 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 
-using s_int = signed int;
-
 class Menu {
 private:
     int m_screen_width;
@@ -26,7 +24,7 @@ private:
     std::vector<sf::Text> m_entries;
 
 public:
-    s_int m_highlighted{0};
+    int m_highlighted{0};
 
     Menu(int _screen_width, int _screen_height);
 

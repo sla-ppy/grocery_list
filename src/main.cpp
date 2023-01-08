@@ -12,8 +12,6 @@
 #include "List.h"
 #include "Menu.h"
 
-using s_int = signed int;
-
 int main() {
     // debug mode so we can both play with SFML and test functionality
     std::cout << "Choose render mode:" << '\n';
@@ -95,7 +93,7 @@ if (mode) {
 } else {
         List list;
 
-        s_int menu_choice{0};
+        int menu_choice{0};
         bool menu{true};
         while (menu) {
             std::cout << "Seed:" << '\n';
