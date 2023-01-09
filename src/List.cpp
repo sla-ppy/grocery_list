@@ -5,8 +5,6 @@
 
 // TODO: add categories for achievements
 
-
-
 List::List(const std::string &file_path) {
     std::fstream file;
     file.open(file_path);
@@ -70,7 +68,6 @@ void List::status() {
     }
     std::cout << "############################################" << '\n';
 }
-
 void List::add() {
     // assign id based on count
     int count{1};
@@ -100,17 +97,16 @@ void List::add() {
     Achievement achievement{description, type, category, progress};
     m_achievements.push_back(achievement);
 }
-
 void List::remove() {
     bool removing{true};
     while (removing) {
         // output format
         std::cout << "Which achievement would you like to remove?" << '\n';
         for (const auto &achievement: m_achievements) {
-            std::cout << achievement.id << '\t',
-                    std::cout << achievement.description << '\t',
-                    std::cout << achievement.type << '\t',
-                    std::cout << achievement.category << '\t';
+            std::cout << achievement.description << '\t',
+            std::cout << achievement.type << '\t',
+            std::cout << achievement.category << '\t';
+            std::cout << achievement.progress << '\t';
         }
 
         // which to remove
@@ -141,7 +137,6 @@ void List::remove() {
         }
     }
 }
-
 void List::edit() {
     bool is_editing{true};
     while (is_editing) {

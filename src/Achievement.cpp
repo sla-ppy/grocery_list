@@ -16,6 +16,6 @@ std::ostream &operator<<(std::ostream &os, const Achievement &achievement) {
     os << achievement.description << '\t';
     os << achievement.type << '\t';
     os << achievement.category << '\t';
-    os << achievement.progress << '\t';
+    os << achievement.progress << "%" << '\t';
     return os;
 }

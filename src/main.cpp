@@ -3,6 +3,7 @@
 
 // C++:
 #include <iostream>
+#include <fstream>
 
 // LIB:
 #include <SFML/Graphics.hpp>
@@ -13,116 +14,76 @@
 #include "Menu.h"
 
 int main() {
-    // debug mode so we can both play with SFML and test functionality
-    std::cout << "Choose render mode:" << '\n';
-    std::cout << "1 - SFML mode" << '\n';
-    std::cout << "0 - Terminal mode" << '\n';
-    std::cout << '\n';
-    bool mode{0};
-    //std::cin >> mode;
+    // init window
+    int screen_width{1920};
+    int screen_height{1080};
 
-    if (mode) {
-        // init window
-        // TODO: get screen data automatically based on user hardware
-        // TODO: update menu entries based on screen size
-        int screen_width{1920};
-        int screen_height{1080};
+    sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Achievements");
 
-        sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Achievements");
+    State state = State::MAIN_MENU;
 
-        Menu menu(screen_width, screen_height);
-        menu.init(window);
+    Menu menu;
 
-        // FIXME: botched sounds, likely wrong usage of audio module
-        sf::SoundBuffer buffer;
-        sf::Sound sound;
-        sound.setBuffer(buffer);
+    std::vector<std::string> options;
+    std::ifstream file("./assets/menu_input.csv");
 
-        while (window.isOpen()) {
-            sf::Event event{};
-
-            menu.processInput(window, event);
-            menu.update(window);
-
-            while (window.pollEvent(event)) {
-                // if (event.type == sf::Event::Resized) { screen_width = event.size.width; screen_height = event.size.height; }
-                // controls
-                if (event.type == sf::Event::KeyPressed) {
-                    if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::W) {
-                        menu.m_highlighted--;
-                        buffer.loadFromFile(menu_select);
-                        sound.play();
-                    }
-                    if (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::S) {
-                        menu.m_highlighted++;
-                        buffer.loadFromFile(menu_select);
-                        sound.play();
-                    }
-
-
-                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 0) {
-                        std::cout << "Check status" << '\n';
-                        buffer.loadFromFile(menu_enter);
-                        sound.play();
-                    }
-                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 1) {
-                        std::cout << "Add achievement" << '\n';
-                        buffer.loadFromFile(menu_enter);
-                        sound.play();
-                    }
-                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 2) {
-                        std::cout << "Remove achievement" << '\n';
-                        buffer.loadFromFile(menu_enter);
-                        sound.play();
-                    }
-                    if (event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 3) {
-                        std::cout << "Edit achievement" << '\n';
-                        buffer.loadFromFile(menu_enter);
-                        sound.play();
-                    }
-                }
-
-                // quit
-                if (event.type == sf::Event::Closed
-                    || event.key.code == sf::Keyboard::Escape
-                    || event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 4) {
-                    window.close();
-                    return 0;
-                }
-            }
+    if (file.is_open()) {
+        std::string line;
+        int i{0};
+        while (getline(file, line, ';')) {
+            options.emplace_back(line);
+            // FIXME: get input based on keyword and dependant on program state
+            // CONTINUE
+            i++;
         }
     } else {
+        std::cerr << "ERROR: File didn't open successfully when importing from menu_input.csv" << '\n';
+    }
+    file.close();
 
-        std::string file_path("./assets/data.csv");
-        List list(file_path);
+    while (window.isOpen()) {
+        sf::Event event{};
 
-        int menu_choice{0};
-        bool menu{true};
-        while (menu) {
-            std::cout << "Seed:" << '\n';
-            std::cout << "1. Check status" << '\n';
-            std::cout << "2. Add achievement" << '\n';
-            std::cout << "3. Remove achievement" << '\n';
-            std::cout << "4. Edit achievement" << '\n';
-            std::cout << "5. Quit" << '\n';
+        switch (state) {
+            case State::MAIN_MENU:
+                menu = Menu(screen_width, screen_height, options);
+                break;
+            case State::STATUS:
+                menu = Menu(screen_width, screen_height, options);
+                break;
+            case State::QUIT:
+                menu = Menu(screen_width, screen_height, options);
+                break;
+        }
 
-            // main menu
-            std::cin >> menu_choice;
-            if (menu_choice == 1) {
-                list.status();
-            } else if (menu_choice == 2) {
-                list.add();
-            } else if (menu_choice == 3) {
-                list.remove();
-            } else if (menu_choice == 4) {
-                list.edit();
-            } else if (menu_choice == 5) {
-                menu = false;
-            } else {
-                std::cerr << "Choose a correct option! (1-5)" << '\n';
+        menu.update(window);
+
+        // controls
+        while (window.pollEvent(event)) {
+            // TODO: fix menu.m_highlighted being public
+            // quit
+            if (event.type == sf::Event::Closed
+                || event.key.code == sf::Keyboard::Escape
+                || event.key.code == sf::Keyboard::Enter && menu.m_highlighted == 4) {
+                state = State::QUIT;
+            }
+
+            switch (state) {
+                case State::MAIN_MENU:
+                    menu.handle_event(event);
+                    break;
+                case State::STATUS:
+                    menu.handle_event(event);
+                    break;
+                case State::QUIT:
+                    window.close();
+                    break;
             }
         }
     }
+
+    // std::string file_path("./assets/data.csv");
+    // List list(file_path);
 
     return 0;
 }
